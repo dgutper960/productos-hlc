@@ -1,0 +1,7 @@
+{
+  "name": "productos-hlc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
