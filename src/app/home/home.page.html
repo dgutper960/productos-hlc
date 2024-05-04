@@ -1,18 +1,67 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Productos Pastelería
+      Productos Pastelería - Fase 1
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <h2>
-    Instalando ImagePicker
-  </h2>
-  <h2>
-    Add firebase
-  </h2>
+  <h1 style="margin-left: 1%;">Agregar un producto</h1>
+
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Nombre</h3>
+      <ion-input [(ngModel)]="productoEditando.nombre"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Descripcion</h3>
+      <ion-input [(ngModel)]="productoEditando.descripcion" multiline="true"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Ingredientes</h3>
+      <ion-input [(ngModel)]="productoEditando.ingredientes"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Precio</h3>
+      <ion-input [(ngModel)]="productoEditando.precio"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  
+
+  <ion-button *ngIf="!idProductoSelect" style="margin-left: 1%;" (click)="clickInsertar()">Añadir Producto</ion-button>
+  <ion-button *ngIf="idProductoSelect" style="margin-left: 1%;" (click)="actualizaProducto()">Editar Producto</ion-button>
+  <ion-button *ngIf="idProductoSelect" style="margin-left: 1%;" (click)="clickBorrar()">Borrar Producto</ion-button>
+  <ion-button *ngIf="idProductoSelect" style="margin-left: 1%;" (click)="clickCancelar()">Cancelar</ion-button>
+
+  <h1 style="margin-left: 1%;">Lista de Productos</h1>
+  <ion-list>
+    <ion-item *ngFor="let producto of arrayProductos" (click)="selecProducto(producto)">
+      <ion-grid>
+        <ion-row>
+          <h2>{{producto.data.nombre}}</h2>
+        </ion-row>
+        <ion-row>
+          <h2>{{producto.data.descripcion}}</h2>
+        </ion-row>
+        <ion-row>
+          <h2>Ingredientes: {{producto.data.ingredientes}}</h2>
+        </ion-row>
+        <ion-row>
+          <h2>Precio: {{producto.data.precio}} €/kg</h2>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
