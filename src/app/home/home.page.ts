@@ -60,29 +60,16 @@ export class HomePage {
 
   }
 
-  public actualizaProducto(){
-    this.firestoreService.actualizar("productos", this.idProductoSelect, this.productoEditando)
-    .then(()=>{
-      this.cargarListaProductos();
-      this.productoEditando = {} as Producto;
-    });
+  public limpiarProducto(){
+
+    this.idProductoSelect = "";
+    this.productoEditando.nombre = "";
+    this.productoEditando.descripcion = "";
+    this.productoEditando.ingredientes = "";
+    this.productoEditando.precio = null;
 
   }
 
-  public clickBorrar(){
-    this.firestoreService.borrar("productos", this.idProductoSelect)
-    .then(()=>{
-      // Actualizamos la lista
-      this.cargarListaProductos();
-      // Limpiamos los datos en pantalla
-      this.idProductoSelect = null;
-      this.productoEditando = {} as Producto;
-    });
-  }
 
-  public clickCancelar(){
-    this.idProductoSelect = null;
-    this.productoEditando = {} as Producto;
-  }
 
 }

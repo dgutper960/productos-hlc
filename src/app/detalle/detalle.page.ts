@@ -47,6 +47,7 @@ export class DetallePage implements OnInit {
       .then(() => {
         this.productoSeleccionado = {} as Producto;
       });
+
     // redirigimos a home
     this.router.navigate(['home']);
 

@@ -40,6 +40,13 @@
   
 
   <ion-button (click)="clickInsertar()">Añadir Producto</ion-button>
+  <ion-button 
+  *ngIf="
+  productoEditando.nombre!=='' || 
+  productoEditando.descripcion!=='' ||
+  productoEditando.ingredientes!=='' ||
+  productoEditando.precio!==null
+  " (click)="limpiarProducto()">Borrar</ion-button>
 
 
   <h1>Lista de Productos</h1>
