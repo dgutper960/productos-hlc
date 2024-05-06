@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../producto';
 import { FirestoreService } from '../firestore.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalle',
@@ -12,42 +12,62 @@ import { Router} from '@angular/router';
 export class DetallePage implements OnInit {
 
   idProducto: string = "";
-  productoSeleccionado: Producto;
+  productoSeleccionado: any = {
+    id: "",
+    data: {} as Producto
+  };
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private firestoreService: FirestoreService) { }
 
   ngOnInit() {
     // Almacennamos el id del producto en una propiedad de la clase
     let idRecibido = this.activateRoute.snapshot.paramMap.get('id');
-    if(idRecibido!= null){
+    if (idRecibido != null) {
       this.idProducto = idRecibido;
     }
+
+    this.cargarProducto();
   }
 
-  public actualizaProducto(){
-    this.firestoreService.actualizar("productos", this.idProducto, this.productoSeleccionado)
-    .then(()=>{
-      this.productoSeleccionado = {} as Producto;
-    });
+  cargarProducto() {
+    this.firestoreService.getProducto("productos", this.idProducto).subscribe((resultado: any) => {
+      if (resultado.payload.data() != null) {
+        this.productoSeleccionado.id = resultado.payload.id;
+        this.productoSeleccionado.data = resultado.payload.data();
+        // mostramos algo por consola
+        console.log(this.productoSeleccionado.data.titulo);
+      } else {
+        this.productoSeleccionado.data = {} as Producto;
+      }
+    })
+  }
+
+  public actualizaProducto() {
+    this.firestoreService.actualizar("productos", this.productoSeleccionado.id, this.productoSeleccionado.data)
+      .then(() => {
+        this.productoSeleccionado = {} as Producto;
+      });
     // redirigimos a home
     this.router.navigate(['home']);
 
   }
 
-  public clickBorrar(){
+  public clickBorrar() {
     this.firestoreService.borrar("productos", this.idProducto)
-    .then(()=>{
-      // Limpiamos los datos en pantalla
-      this.idProducto = null;
-      this.productoSeleccionado = {} as Producto;
-    });
-        // redirigimos a home
-        this.router.navigate(['home']);
+      .then(() => {
+        // Limpiamos los datos en pantalla
+        this.idProducto = null;
+        this.productoSeleccionado = {} as Producto;
+      });
+    // redirigimos a home
+    this.router.navigate(['home']);
   }
 
-  public clickCancelar(){
-    this.idProducto = null;
+  public clickCancelar() {
+    this.idProducto = "";
     this.productoSeleccionado = {} as Producto;
+    // redirigimos a home
+    this.router.navigate(['home']);
   }
 
 }

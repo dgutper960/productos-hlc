@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Productos Pastelería - Fase 1
+      Productos Pastelería - Fase 3
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -39,10 +39,8 @@
   </ion-card>
   
 
-  <ion-button *ngIf="!idProductoSelect" (click)="clickInsertar()">Añadir Producto</ion-button>
-  <ion-button *ngIf="idProductoSelect" (click)="actualizaProducto()">Editar Producto</ion-button>
-  <ion-button *ngIf="idProductoSelect" (click)="clickBorrar()">Borrar Producto</ion-button>
-  <ion-button *ngIf="idProductoSelect" (click)="clickCancelar()">Cancelar</ion-button>
+  <ion-button (click)="clickInsertar()">Añadir Producto</ion-button>
+
 
   <h1>Lista de Productos</h1>
   <ion-list>

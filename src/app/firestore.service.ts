@@ -25,4 +25,9 @@ export class FirestoreService {
     return this.angularFirestore.collection(coleccion).doc(idProducto).delete();
   }
 
+  // Obtiene los datos de un producto por id
+  public getProducto(coleccion: string, idProducto: string){
+    return this.angularFirestore.collection(coleccion).doc(idProducto).snapshotChanges();
+  }
+
 }
