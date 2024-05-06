@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>detalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h1 style="margin-left: 1%;">Detalles Producto {{idProducto}}</h1>
+
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Nombre</h3>
+      <ion-input [(ngModel)]="productoSeleccionado.nombre"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Descripcion</h3>
+      <ion-input [(ngModel)]="productoSeleccionado.descripcion" multiline="true"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Ingredientes</h3>
+      <ion-input [(ngModel)]="productoSeleccionado.ingredientes"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card style="width: 500px;">
+    <ion-card-content>
+      <h3>Precio</h3>
+      <ion-input [(ngModel)]="productoSeleccionado.precio"></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button  style="margin-left: 1%;" (click)="actualizaProducto()">Editar Producto</ion-button>
+  <ion-button  style="margin-left: 1%;" (click)="clickBorrar()">Borrar Producto</ion-button>
+  <ion-button  style="margin-left: 1%;" (click)="clickCancelar()">Cancelar</ion-button>
+
+</ion-content>

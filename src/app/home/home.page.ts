@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Producto } from '../producto';
 import { FirestoreService } from '../firestore.service';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomePage {
 
   idProductoSelect: string;
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private router: Router, private firestoreService: FirestoreService) {
     // Creamos producto vacio
     this.productoEditando = {} as Producto;
 
@@ -54,6 +55,9 @@ export class HomePage {
     this.productoEditando.descripcion = producto.data.descripcion;
     this.productoEditando.ingredientes = producto.data.ingredientes;
     this.productoEditando.precio = producto.data.precio;
+    // Redireccionamos a detalle y pasamos el id del producto como parámetro
+    this.router.navigate(['/detalle', this.idProductoSelect]);
+
   }
 
   public actualizaProducto(){
