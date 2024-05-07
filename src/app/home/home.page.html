@@ -8,48 +8,17 @@
 
 <ion-content [fullscreen]="true">
 
-  <h1>Agregar un producto</h1>
-
-  <ion-card class="input_producto">
-    <ion-card-content>
-      <h3>Nombre</h3>
-      <ion-input [(ngModel)]="productoEditando.nombre"></ion-input>
-    </ion-card-content>
-  </ion-card>
+  <!-- boton ion-fab-button -->
+  <ion-fab (click)="clickAddTarea()" vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button aria-label="Añadir nuevo elemento">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+ </ion-fab>
+ 
+ <ion-item>
+  <legend>Lista de Productos</legend>
+ </ion-item>
   
-  <ion-card class="input_producto">
-    <ion-card-content>
-      <h3>Descripcion</h3>
-      <ion-input [(ngModel)]="productoEditando.descripcion" multiline="true"></ion-input>
-    </ion-card-content>
-  </ion-card>
-  
-  <ion-card class="input_producto">
-    <ion-card-content>
-      <h3>Ingredientes</h3>
-      <ion-input [(ngModel)]="productoEditando.ingredientes"></ion-input>
-    </ion-card-content>
-  </ion-card>
-  
-  <ion-card class="input_producto">
-    <ion-card-content>
-      <h3>Precio</h3>
-      <ion-input [(ngModel)]="productoEditando.precio"></ion-input>
-    </ion-card-content>
-  </ion-card>
-  
-
-  <ion-button (click)="clickInsertar()">Añadir Producto</ion-button>
-  <ion-button 
-  *ngIf="
-  productoEditando.nombre!=='' || 
-  productoEditando.descripcion!=='' ||
-  productoEditando.ingredientes!=='' ||
-  productoEditando.precio!==null
-  " (click)="limpiarProducto()">Borrar</ion-button>
-
-
-  <h1>Lista de Productos</h1>
   <ion-list>
     <ion-item *ngFor="let producto of arrayProductos" (click)="selecProducto(producto)">
       <ion-card class="producto_select">

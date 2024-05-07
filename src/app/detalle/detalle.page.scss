@@ -1,8 +1,16 @@
-ion-button, h1{
-    margin-left: 1%;
-  }
-  
-  .input_producto{
-    width: 30vw;
-  }
-  
+ion-button,
+h1 {
+  margin-left: 1%;
+}
+
+.input_producto {
+  width: 30vw;
+  background-color: rgba(211, 211, 211, 0.404);
+  color: black;
+  transition: background-color 0.3s ease; // Animación de cambio de color de fondo 
+}
+
+.input_producto ion-input:focus {
+  background-color: lightblue; // Cambia el fondo cuando el ion-input está enfocado 
+  color: black;
+}

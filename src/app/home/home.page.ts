@@ -26,16 +26,6 @@ export class HomePage {
     this.cargarListaProductos();
   }
 
-  public clickInsertar(){
-    this.firestoreService.insertar("productos", this.productoEditando)
-    .then(()=>{
-      console.log("Nuevo producto instertado");
-      // Limpiamos el contenido del producto en edición
-      this.productoEditando = {} as Producto;
-    }, (error) => {
-      console.log(error);
-    });
-  }
 
   public cargarListaProductos(){
     this.firestoreService.consultar("productos").subscribe((result) =>{
@@ -69,6 +59,14 @@ export class HomePage {
     this.productoEditando.precio = null;
 
   }
+
+    // Redirecciona a detalle para añadir nueva tarea
+    clickAddTarea(){
+      // Cambiamos el valor del id de la tarea  
+      this.idProductoSelect = "Insert_Producto"; // Este elemento no debe ser cadena vacía o null
+      // Redirigimos a /detalle
+      this.router.navigate(['/detalle', this.idProductoSelect]);
+    }
 
 
 

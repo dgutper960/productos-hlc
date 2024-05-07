@@ -71,4 +71,15 @@ export class DetallePage implements OnInit {
     this.router.navigate(['home']);
   }
 
+  public clickInsertar(){
+    this.firestoreService.insertar("productos", this.productoSeleccionado)
+    .then(()=>{
+      console.log("Nuevo producto instertado");
+      // Limpiamos el contenido del producto en edición
+      this.productoSeleccionado = {} as Producto;
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
 }

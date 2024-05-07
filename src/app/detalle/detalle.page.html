@@ -36,8 +36,10 @@
   </ion-card>
   
 
-  <ion-button (click)="actualizaProducto()">Editar Producto</ion-button>
-  <ion-button (click)="clickBorrar()">Borrar Producto</ion-button>
+  <!-- Botones de Acción -->
+  <ion-button *ngIf="idProducto==='Insert_Producto'" (click)="clickInsertar()">Insertar Producto</ion-button>
+  <ion-button *ngIf="idProducto!=='Insert_Producto'" (click)="actualizaProducto()">Editar Producto</ion-button>
+  <ion-button *ngIf="idProducto!=='Insert_Producto'" (click)="clickBorrar()">Borrar Producto</ion-button>
   <ion-button (click)="clickCancelar()">Cancelar</ion-button>
 
 </ion-content>

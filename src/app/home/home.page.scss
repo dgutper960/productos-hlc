@@ -39,3 +39,14 @@ ion-button, h1{
   width: 80vw;
   cursor: pointer;
 }
+
+.producto_select:hover{
+  background-color: rgb(212, 237, 245);
+  color: black;
+}
+
+legend{
+  margin-left: 2%;
+  margin-top: 1%;
+  font-size: 2em;
+}
