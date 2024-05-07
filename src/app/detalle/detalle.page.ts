@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../producto';
 import { FirestoreService } from '../firestore.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detalle',
@@ -17,7 +18,7 @@ export class DetallePage implements OnInit {
     data: {} as Producto
   };
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private firestoreService: FirestoreService) { }
+  constructor(private alertController: AlertController, private router: Router, private activateRoute: ActivatedRoute, private firestoreService: FirestoreService) { }
 
   ngOnInit() {
     // Almacennamos el id del producto en una propiedad de la clase
@@ -27,6 +28,33 @@ export class DetallePage implements OnInit {
     }
 
     this.cargarProducto();
+  }
+
+  // Borrar producto seleccinado al hacer click en el boton borrar
+  // Implementamos una funcion de alerta antes de borrar
+  // Asociamos esta función al botón borrar
+  // Si el usuario acepta, se llama a la funcion que borra producto de la coleccion
+  async confirmarBorrado() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Borrado',
+      message: 'Esta acción no se puede deshacer, ¿Confirma borrar producto?',
+      buttons: [{
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          console.log('Borrado cancelado');
+        }
+      }, {
+        text: 'Borrar',
+        handler: () => {
+          console.log('Borrado confirmado');
+          // Llamada a foncion borrar
+          this.clickBorrar();
+        }
+      }]
+    });
+    await alert.present();
   }
 
   cargarProducto() {
@@ -71,15 +99,19 @@ export class DetallePage implements OnInit {
     this.router.navigate(['home']);
   }
 
-  public clickInsertar(){
-    this.firestoreService.insertar("productos", this.productoSeleccionado)
-    .then(()=>{
-      console.log("Nuevo producto instertado");
-      // Limpiamos el contenido del producto en edición
-      this.productoSeleccionado = {} as Producto;
-    }, (error) => {
-      console.log(error);
-    });
+  public clickInsertar() {
+    this.firestoreService.insertar("productos", this.productoSeleccionado.data)
+      .then(() => {
+        console.log("Nuevo producto instertado");
+        // Limpiamos el contenido del producto en edición
+        this.productoSeleccionado.data = {} as Producto;
+      }, (error) => {
+        console.log(error);
+      });
+
+    // redirigimos a home
+    this.router.navigate(['home']);
   }
+
 
 }
