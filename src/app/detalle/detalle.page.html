@@ -42,4 +42,9 @@
   <ion-button *ngIf="idProducto!=='Insert_Producto'" (click)="confirmarBorrado()">Borrar Producto</ion-button>
   <ion-button (click)="clickCancelar()">Cancelar</ion-button>
 
+  <!-- Botones de imagenes -->
+  <ion-button (click)="seleccionarImagen()">Seleccionar</ion-button>
+  <ion-button (click)="subirImagen()">Subir</ion-button>
+  <ion-button (click)="eliminarImagen(productoSeleccionado.data.imagenURL)">Borrar</ion-button>
+
 </ion-content>

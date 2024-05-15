@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../producto';
 import { FirestoreService } from '../firestore.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 
 @Component({
   selector: 'app-detalle',
@@ -17,8 +18,17 @@ export class DetallePage implements OnInit {
     id: "",
     data: {} as Producto
   };
+  imagenSelec: string = '';
 
-  constructor(private alertController: AlertController, private router: Router, private activateRoute: ActivatedRoute, private firestoreService: FirestoreService) { }
+  constructor(
+    private alertController: AlertController,
+    private router: Router,
+    private activateRoute: ActivatedRoute,
+    private firestoreService: FirestoreService,
+    private loadingController: LoadingController,
+    private toastController: ToastController,
+    private imagePicker: ImagePicker
+  ) { }
 
   ngOnInit() {
     // Almacennamos el id del producto en una propiedad de la clase
@@ -112,6 +122,80 @@ export class DetallePage implements OnInit {
     // redirigimos a home
     this.router.navigate(['home']);
   }
+
+  // Seleccionar imagen
+  async seleccionarImagen() {
+    this.imagePicker.hasReadPermission().then(
+      (result) => {
+        if (result == false) {
+          this.imagePicker.requestReadPermission();
+        } else {
+          this.imagePicker.getPictures({
+            maximumImagesCount: 1,
+            outputType: 1
+          }).then(
+            (results) => {
+              if (results.length > 0) {
+                this.imagenSelec = "data:image/jpeg;base64," + results[0];
+                console.log(`Imagen seleccionada ${this.imagenSelec}`);
+              }
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  // Subir Imagen seleccinada
+  async subirImagen() {
+    const loading = await this.loadingController.create({
+      message: 'Subiendo Imagen. Espere'
+    });
+    const toast = await this.toastController.create({
+      message: 'Imagen subida correctamente',
+      duration: 3000
+    });
+
+    let nombreCarpeta = "imagenes";
+
+    loading.present();
+
+    let nombreImagen = `${new Date().getTime()}`;
+    this.firestoreService.subirImagen(nombreCarpeta, nombreImagen, this.imagenSelec)
+      .then(snapshot => {
+        snapshot.ref.getDownloadURL()
+          .then(downloadURL => {
+            console.log(`downloadURL: ${downloadURL}`);
+            // Obtenemos la url de la imagen
+            this.productoSeleccionado.data.imagenURL = downloadURL;
+            toast.present();
+            loading.dismiss();
+          })
+      });
+
+  }
+
+  // Eliminar imagen por URL
+  async eliminarImagen(imagenURL: string) {
+    const toast = await this.toastController.create({
+      message: 'Imagen Borrada Correctamente',
+      duration: 3000
+    });
+    this.firestoreService.eliminarImagen(imagenURL)
+      .then(() => {
+        toast.present();
+      }, (err) => {
+        console.log(err);
+      });
+  }
+
+
 
 
 }

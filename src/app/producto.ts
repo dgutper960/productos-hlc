@@ -3,4 +3,5 @@ export interface Producto {
     descripcion: string;
     ingredientes: string;
     precio: number;
+    imagenURL: string;
 }
