@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 
-
+// share
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-detalle',
@@ -32,7 +33,26 @@ export class DetallePage implements OnInit {
     private imagePicker: ImagePicker
   ) { }
 
-
+    // metodo de compartir
+    // Añade control de erorres en caso de elementos vacios
+    async compartir() {
+      try {
+        const ingredientes = this.productoSeleccionado?.data?.ingredientes;
+        
+        if (!ingredientes) {
+          throw new Error('El título del producto no está disponible o está vacío');
+        }
+    
+        await Share.share({
+          text: ingredientes,
+          dialogTitle: 'Compartir' // Opcional, para proporcionar un título al diálogo de compartir
+        });
+        console.log("Compartido con éxito");
+      } catch (error) {
+        console.error("Error al compartir:", error.message);
+      }
+    }
+    
 
 
   ngOnInit() {
