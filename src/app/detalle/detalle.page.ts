@@ -122,6 +122,7 @@ export class DetallePage implements OnInit {
         // Limpiamos los datos en pantalla
         this.idProducto = null;
         this.productoSeleccionado = {} as Producto;
+        this.imagenSelec = '';
       });
     // redirigimos a home
     this.router.navigate(['home']);
