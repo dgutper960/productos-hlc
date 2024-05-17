@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 
-// share
-import { Share } from '@capacitor/share';
+
 
 @Component({
   selector: 'app-detalle',
@@ -33,14 +32,7 @@ export class DetallePage implements OnInit {
     private imagePicker: ImagePicker
   ) { }
 
-    // metodo de compartir
-    async compartir(){
 
-      await Share.share({
-        text: this.productoSeleccionado.data.titulo
-      });
-
-    }
 
 
   ngOnInit() {
