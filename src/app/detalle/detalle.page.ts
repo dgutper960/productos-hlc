@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 
+// share
+import { Share } from '@capacitor/share';
+
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.page.html',
@@ -29,6 +32,16 @@ export class DetallePage implements OnInit {
     private toastController: ToastController,
     private imagePicker: ImagePicker
   ) { }
+
+    // metodo de compartir
+    async compartir(){
+
+      await Share.share({
+        text: this.productoSeleccionado.data.titulo
+      });
+
+    }
+
 
   ngOnInit() {
     // Almacennamos el id del producto en una propiedad de la clase
@@ -194,8 +207,5 @@ export class DetallePage implements OnInit {
         console.log(err);
       });
   }
-
-
-
 
 }
