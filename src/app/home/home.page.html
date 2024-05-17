@@ -14,7 +14,31 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
  </ion-fab>
+
+ <!-- Añadimos pestañas -->
+ <ion-toolbar>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <!-- pestaña para home -->
+      <ion-tab-button tab="home">
+        <ion-icon name="triangle"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-tab-button>
+      <!-- pestaña para indo -->
+      <ion-tab-button tab="info">
+        <ion-icon name="ellipse"></ion-icon>
+        <ion-label>Ver Info</ion-label>
+      </ion-tab-button>
+  
+    </ion-tab-bar>
+   </ion-tabs>
+ </ion-toolbar>
+
+ <br>
+ <br>
+
  
+ <!-- Lista de productos -->
  <ion-item>
   <legend>Lista de Productos</legend>
  </ion-item>
