@@ -121,8 +121,8 @@ export class DetallePage implements OnInit {
       .then(() => {
         // Limpiamos los datos en pantalla
         this.idProducto = null;
-        this.productoSeleccionado = {} as Producto;
         this.imagenSelec = '';
+        this.productoSeleccionado.data.imagenURL = '';
       });
     // redirigimos a home
     this.router.navigate(['home']);
@@ -164,6 +164,7 @@ export class DetallePage implements OnInit {
               if (results.length > 0) {
                 this.imagenSelec = "data:image/jpeg;base64," + results[0];
                 console.log(`Imagen seleccionada ${this.imagenSelec}`);
+                this.subirImagen(); // LLAMADA SUBIR IMAGEN
               }
             },
             (err) => {
@@ -176,6 +177,9 @@ export class DetallePage implements OnInit {
         console.log(err);
       }
     );
+
+
+    
   }
 
   // Subir Imagen seleccinada
@@ -209,16 +213,20 @@ export class DetallePage implements OnInit {
 
   // Eliminar imagen por URL
   async eliminarImagen(imagenURL: string) {
+    // Borramos la imagen de FireStore
     const toast = await this.toastController.create({
-      message: 'Imagen Borrada Correctamente',
+      message: 'Archivo borrado con éxito',
       duration: 3000
     });
+    // Llamamos al método de forestoreService para elimimar ficheros
     this.firestoreService.eliminarImagen(imagenURL)
-      .then(() => {
-        toast.present();
-      }, (err) => {
-        console.log(err);
-      });
+    .then(()=>{
+      toast.present();
+    }, (err)=>{
+      console.log(err);
+    });
+
+    this.productoSeleccionado.data.imagenURL = '';
   }
 
 }

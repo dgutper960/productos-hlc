@@ -7,10 +7,13 @@
 <ion-content [fullscreen]="true">
   <h1 style="margin-left: 1%;">Detalles Producto {{idProducto}}</h1>
 
-  <!-- Mostramos imagen -->
-  
-  <img src="{{productoSeleccionado.data.imagenURL}}" *ngIf="productoSeleccionado.data.imagenURL!==''" height="200px" alt="imagen" />
-  <img src="{{imagenSelec}}" *ngIf="imagenSelec!==''" height="200px" alt="imagen" />
+  <!-- Mostramos imagen solo si existe, si no, mostramos un texto -->
+  <div *ngIf="productoSeleccionado.data.imagenURL!==''; else sinImagen">
+    <img [src]="productoSeleccionado.data.imagenURL" height="200px" alt="imagen" />
+  </div>
+  <ng-template #sinImagen>
+    <p>Producto sin imagen</p>
+  </ng-template>
 
   <ion-card class="input_producto">
     <ion-card-content>
@@ -40,18 +43,27 @@
     </ion-card-content>
   </ion-card>
   
-
   <!-- Botones de Acción -->
-  <ion-button *ngIf="idProducto==='Insert_Producto'" (click)="clickInsertar()">Insertar Producto</ion-button>
-  <ion-button *ngIf="idProducto!=='Insert_Producto'" (click)="actualizaProducto()">Editar Producto</ion-button>
-  <ion-button *ngIf="idProducto!=='Insert_Producto'" (click)="confirmarBorrado()">Borrar Producto</ion-button>
-  <ion-button (click)="clickCancelar()">Cancelar</ion-button>
 
-  <ion-button (click)="compartir()">compartir ingredientes</ion-button>
+  <!-- Acciones del producto -->
+  <div>
+    <h3>Acciones del producto</h3>
+    <ion-button *ngIf="idProducto==='Insert_Producto'" (click)="clickInsertar()">Insertar Producto</ion-button>
+    <ion-button *ngIf="idProducto!=='Insert_Producto'" (click)="actualizaProducto()">Editar Producto</ion-button>
+    <ion-button *ngIf="idProducto!=='Insert_Producto'" (click)="confirmarBorrado()">Borrar Producto</ion-button>
+  </div>
 
-  <!-- Botones de imagenes -->
-  <ion-button (click)="seleccionarImagen()">Seleccionar</ion-button>
-  <ion-button (click)="subirImagen()">Subir</ion-button>
-  <ion-button (click)="eliminarImagen(productoSeleccionado.data.imagenURL)">Borrar</ion-button>
+  <!-- Acciones de la pagina -->
+  <div>
+    <h3>Acciones de la Página</h3>
+    <ion-button (click)="clickCancelar()">Cancelar</ion-button>
+    <ion-button (click)="compartir()">compartir ingredientes</ion-button>
+  </div>
 
+  <!-- Acciones de la imagen -->
+  <div>
+    <h3>Acciones de la imagen</h3>
+    <ion-button (click)="seleccionarImagen()">Asignar Imagen</ion-button>
+    <ion-button (click)="eliminarImagen(productoSeleccionado.data.imagenURL)">Borrar</ion-button>
+  </div>
 </ion-content>
