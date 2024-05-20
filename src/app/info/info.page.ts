@@ -37,19 +37,18 @@ export class InfoPage implements OnInit {
   }
 
   loadMap() {
-    let latitud = 36.67220715606298; // Ajusta ligeramente si es necesario
-    let longitud = -5.4486584750121185; // Ajusta ligeramente si es necesario
-    let zoom = 19; // El zoom máximo de Leaflet es 19
+    let latitud = 36.67220715606298; 
+    let longitud = -5.4486584750121185; 
+    let zoom = 19; // El zoom máximo es 19
   
     // Inicializar el mapa
     this.map = L.map("mapId").setView([latitud, longitud], zoom);
     
-    // Añadir la capa de tiles de OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19, // Asegúrate de establecer el maxZoom aquí también
+      maxZoom: 19, 
     }).addTo(this.map);
     
-    // Añadir un marcador en las coordenadas especificadas
+    // Añadir un marcador en las coordenadas
     L.marker([latitud, longitud]).addTo(this.map)
       .bindPopup('Ubicación del Negocio')
       .openPopup();
