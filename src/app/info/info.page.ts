@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CallNumber } from '@awesome-cordova-plugins/call-number';
+
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
@@ -18,8 +20,12 @@ export class InfoPage implements OnInit {
 
     // redirigimos a home
     this.router.navigate(['home']);
-
   }
+
+  async call() {
+    await CallNumber.callNumber("666999333", true);
+  }
+
 
 
 
